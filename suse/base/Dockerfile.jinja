@@ -1,0 +1,36 @@
+FROM opensuse/leap
+LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
+
+ENV GPUDK_URL http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-opensuse15-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
+ENV CUDA_PKG_VERSION 10-2
+ENV CUDA_CUBLAS_VERSION 10-0
+#RUN wget -O /var/tmp/cuda-repo-opensuse15-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm $GPUDK_URL;\
+#    rpm -i cuda-repo-opensuse15-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm ;\
+#    zypper refresh
+#    rm -f cuda-repo-opensuse15-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm ;\
+
+RUN echo $'cuda-10-2]\n\
+name=cuda-10-2\n\
+enabled=1\n\
+autorefresh=0\n\
+baseurl=https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/\n\
+type=rpm-md\n\
+gpgcheck=1\n'\
+> /etc/zypp/repos.d/cuda.repo
+
+RUN zypper --gpg-auto-import-keys ref -s; \
+    zypper -n install \
+        cuda-nvrtc-$CUDA_PKG_VERSION \
+        cuda-cusolver-$CUDA_PKG_VERSION \
+        cuda-cublas-$CUDA_CUBLAS_VERSION \
+        cuda-cufft-$CUDA_PKG_VERSION \
+        cuda-curand-$CUDA_PKG_VERSION \
+        cuda-cusparse-$CUDA_PKG_VERSION \
+        cuda-npp-$CUDA_PKG_VERSION \
+        cuda-cudart-$CUDA_PKG_VERSION ;\
+    zypper clean -a;
+ENV LIBRARY_PATH /usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+ENV PATH /usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/NsightCompute-2019.1${PATH:+:${PATH}}
+#not required as dirver is not to be installed
+#/usr/bin/nvidia-persistenced --verbose
+#cuda-install-samples-10.2.sh <dir>
