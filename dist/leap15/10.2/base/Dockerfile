@@ -24,6 +24,8 @@ RUN zypper install -y \
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
+RUN ldconfig
+
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
 
@@ -33,16 +35,3 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419"
 
 
-#RUN    zypper -n install \
-#        cuda-nvrtc-$CUDA_PKG_VERSION \
-#        cuda-cusolver-$CUDA_PKG_VERSION \
-#        cuda-cublas-$CUDA_CUBLAS_VERSION \
-#        cuda-cufft-$CUDA_PKG_VERSION \
-#        cuda-curand-$CUDA_PKG_VERSION \
-#        cuda-cusparse-$CUDA_PKG_VERSION \
-#        cuda-npp-$CUDA_PKG_VERSION \
-#        cuda-cudart-$CUDA_PKG_VERSION && \
-#        cuda-compat-$CUDA_PKG_VERSION && \
-#    ln -s /usr/local/cuda-10.2 /usr/local/cuda  &&\
-#    zypper clean -a
-     

@@ -29,6 +29,7 @@ RUN zypper install -y \
         {% if cuda.version.major | int == 10 and cuda.version.minor | int >= 1 -%}
         libcublas-devel-10.2.{{ cuda.version.minor }}.{{ cuda.version.build }}-1 \
         {% endif -%}
-{% endif -%}
+{% endif -%};\
+        ldconfig
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs

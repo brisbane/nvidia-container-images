@@ -6,5 +6,6 @@ RUN zypper install -y \
 cuda-nvtx-$CUDA_PKG_VERSION \
     libcublas10-10.2.2.89-1 
 
-RUN zypper clean -a;
+RUN zypper clean -a; \
+    ldconfg
 

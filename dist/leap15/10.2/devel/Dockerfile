@@ -7,6 +7,6 @@ RUN zypper install -y \
 cuda-libraries-dev-$CUDA_PKG_VERSION \
         cuda-minimal-build-$CUDA_PKG_VERSION \
         libcublas-devel-10.2.2.89-1 \
-        &&  ln -sf sr/local/cuda-10.2 /usr/local/cuda 
+        &&  ln -sf sr/local/cuda-10.2 /usr/local/cuda && ldconfig
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
