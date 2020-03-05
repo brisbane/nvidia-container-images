@@ -30,6 +30,7 @@ RUN zypper install -y \
         libcublas-devel-10.2.{{ cuda.version.minor }}.{{ cuda.version.build }}-1 \
         {% endif -%}
 {% endif -%};\
+        zypper clean -a && \
         ldconfig
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
