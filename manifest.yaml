@@ -269,7 +269,7 @@ ubuntu16.04:
       cudnn5:
         version: "5.1.10"
 
-leap15.1: 
+leap15: 
   template_path: suse
   cuda:
     repo_url: "https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/"
