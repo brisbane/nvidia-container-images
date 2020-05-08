@@ -3,8 +3,8 @@ LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
 
 RUN zypper -n install -y curl && mkdir -p /etc/pki/rpm-gpg
 ENV GPUDK_URL http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-opensuse15-10-2-local-10.2.89-440.33.01-1.0-1.x86_64.rpm
-ENV CUDA_VERSION 10.2.89
-ENV CUDA_PKG_VERSION 10-2
+ENV CUDA_VERSION 10.0.130
+ENV CUDA_PKG_VERSION 10-0
 
 RUN echo $'[cuda]\n\
 name=cuda\n\
@@ -37,4 +37,4 @@ RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419"
+ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=410,driver<411"
